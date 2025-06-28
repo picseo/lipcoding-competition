@@ -1,14 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-  // TODO: 인증 및 역할에 따라 메뉴 변경
+  const navigate = useNavigate();
+  const isLoggedIn = Boolean(localStorage.getItem('token'));
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
     <nav className="bg-blue-600 text-white px-4 py-3 flex gap-4">
-      <Link to="/profile">프로필</Link>
-      <Link to="/mentors">멘토목록</Link>
-      <Link to="/requests">매칭요청</Link>
-      <Link to="/login">로그아웃</Link>
+      {isLoggedIn ? (
+        <>
+          <Link to="/profile">프로필</Link>
+          <Link to="/mentors">멘토목록</Link>
+          <Link to="/requests">매칭요청</Link>
+          <button onClick={handleLogout} className="bg-blue-700 px-2 rounded">로그아웃</button>
+        </>
+      ) : (
+        <>
+          <Link to="/login">로그인</Link>
+          <Link to="/signup">회원가입</Link>
+        </>
+      )}
     </nav>
   );
 };
