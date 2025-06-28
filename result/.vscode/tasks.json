@@ -1,0 +1,13 @@
+{
+    // FastAPI 실행을 위한 VS Code Task
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run FastAPI Server",
+            "type": "shell",
+            "command": "uvicorn main:app --reload --host 0.0.0.0 --port 8080",
+            "group": "build",
+            "problemMatcher": []
+        }
+    ]
+}
